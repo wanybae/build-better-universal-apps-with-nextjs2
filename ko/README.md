@@ -137,13 +137,17 @@ export default () => (
 
 <!-- When you build your app with next build and start your app, Next.js 2 will serve your JavaScript files and other assets as immutable assets. This simply means that once the browser has downloaded any immutable asset, if you reload the browser page, your browser won't try to load these assets from the server again. -->
 
- `next build`로 앱을 빌드하고 앱을 시작하면, **Next.js 2.0**은 JavaScript 화일과 기타 리소스들(assets)을 이뮤터블 리소스로서 서빙하게 됩니다. This simply means that once the browser has downloaded any immutable asset, if you reload the browser page, your browser won't try to load these assets from the server again.
+ `next build`로 앱을 빌드하고 앱을 시작하면, **Next.js 2.0**은 JavaScript 화일과 기타 리소스들(assets)을 이뮤터블 리소스로서 서빙하게 됩니다. 이는 단순히 브라우저가 이뮤터블 리소스를 다운로드한 후에 브라우저 페이지를 리로드하면 브라우저가 서버에서 이 리소스를 리로드 하려고 시도하지 않는다는 것을 의미합니다.
 
-Another gain for performance and speed. Whoop! Whoop!
+<!-- Another gain for performance and speed. Whoop! Whoop! -->
 
-### 7. Custom Babel and Webpack Configurations
+ 성능과 속도를 위한 또다른 이득! 오예~~
 
-Next.js 2 is fully extensible. You have complete control over Babel's and Webpack's configuration. For example, if you want to extend Babel, you can simply define a .babelrc file at your app's root and apply next/babel preset. With that, you include whatever babel plugins you need like so:
+### 7. Babel과 Webpack 커스텀 설정
+
+<!-- Next.js 2 is fully extensible. You have complete control over Babel's and Webpack's configuration. For example, if you want to extend Babel, you can simply define a .babelrc file at your app's root and apply next/babel preset. With that, you include whatever babel plugins you need like so: -->
+
+ **Next.js 2.0** 완벽하게 확장이 가능합니다. Babel과 Webpack의 설정을 완벽하게 할 수 있습니다. 예를들어서, 만약 Babel을 확장하기 위해서 간단하게 `.babelrc`화일을 앱루트에 정의하고 `next/babel`의 프리셋을 적용하면 됩니다. 이를 통해서 다음과 같이 원하는 어떤 Babel 플러그인이든 포함시킬 수 있습니다:
 
 ```
 {
@@ -151,11 +155,14 @@ Next.js 2 is fully extensible. You have complete control over Babel's and Webpac
   "plugins": ["transform-flow-strip-types"]
 }
 ```
-Check out this working example.
 
-sample .babelrc file
+<!-- Check out this working example. -->
 
-To extend the usage of Webpack in Next.js, you can create a next.config.js file in the root of your project's directory. Once you have that, you can define a function in the Node.js module like so:
+다음 [셈플 예제](https://github.com/zeit/next.js/tree/master/examples/with-custom-babel-config)를 확인해보세요.
+
+<!-- To extend the usage of Webpack in Next.js, you can create a next.config.js file in the root of your project's directory. Once you have that, you can define a function in the Node.js module like so: -->
+
+ **Next.js**에서 `Webpack`을 확장해서 사용하려면, `next.config.js`화일을 프로젝트 루트 디렉토리에 생성하세요. 일단 그렇게 하면 다음과 같이 Node.js에서 함수를 정의할 수 있습니다:
 
 ```
 module.exports = {
@@ -167,11 +174,15 @@ module.exports = {
   }
 }
 ```
-Note: The next.config.js file is a regular Node.js module.
+<!-- Note: The next.config.js file is a regular Node.js module.-->
 
-8. Composed CSS support
+**참고**: `next.config.js` 화일은 일반 Node.js 모듈입니다.
 
-Before now, next/css was the default CSS-in-JS solution for Next.js. In Next.js 2, it has been deprecated in favor of styled-jsx, a Babel transformation that provides full, scoped and component-friendly CSS support for JSX (rendered on the server or the client).
+### 8. 정리된 CSS의 지원
+
+<!-- Before now, next/css was the default CSS-in-JS solution for Next.js. In Next.js 2, it has been deprecated in favor of styled-jsx, a Babel transformation that provides full, scoped and component-friendly CSS support for JSX (rendered on the server or the client). -->
+
+이전까지는, `next/css`는 Next.js의 기본 `CSS-in-JS` 솔루션이었습니다. **Next.js 2.0**에서는 이게 더이상 사용되지 않고 스타일드 컴포넌트(역주:밑에 예제와 같이 CSS를 컴포넌트화 한 방식)로 사용하게 됩니다.
 
 ```
 export default () => (
@@ -199,67 +210,102 @@ export default () => (
 )
 ```
 
-In the code example above, you can see how it provides scoped support for this JSX-written component.
+<!-- In the code example above, you can see how it provides scoped support for this JSX-written component. -->
 
-9. Isolating React From Next
+ 위의 코드를 보면, JSX로 씌여진 컴포넌트에 명확히 스타일의 범위가 정리되어 제공되고 있는걸 볼 수 있습니다.
 
-Before now, Next.js shipped with React. All you needed to do was:
+### 9. Next에서 React 격리시키기
 
+<!-- Before now, Next.js shipped with React. All you needed to do was:-->
 
+이전에는, **Next.js**는 **React**와 같이 제공되었었죠. 그래서 다음과 같이 `next`만 설치하면 되었습니다:
 `npm install next --save`
-In Next.js 2.0, you now need to bring in next with react and react-dom like so:
 
+<!--In Next.js 2.0, you now need to bring in next with react and react-dom like so:-->
 
+**Next.js 2.0**에서는 앞으로 `next`와 같이 `react`와 `react-dom`도 같이 설치해야 합니다:
 `npm install --save next react react-dom`
-This creates opportunity for you to use other React API implementations such as Preact. It also allows you to update React independently of Next.js.
 
-9. Practical Examples of Backend Integrations
+ 이를 통해 [Preact](https://github.com/zeit/next.js/tree/master/examples/using-preact)와 같은 다른 React API를 사용할 수 있습니다. 또한 Next.js와 독립적으로 React를 업데이트 할 수 있습니다.
 
-Many developers have been helping out in providing examples on how to integrate Next.js with several backend technologies.
+<!-- This creates opportunity for you to use other React API implementations such as Preact. It also allows you to update React independently of Next.js. -->
 
-Hapi Integration
-Express Integration
-Koa integration
-10. Availability of Learning Platforms
+### 10. 백엔드 통합의 실제 사례
 
-It's amazing to see that in a short time that Next.js has been in existence, lots of examples have been amassed and there is a learning platform that the Next.js team approves of. With the release of Next.js 2, we have:
+<!-- Many developers have been helping out in providing examples on how to integrate Next.js with several backend technologies.-->
 
-About 48 examples of integrating Next.js with Apollo, Inferno, Preact and ways of achieving different common functionalities with Next.js
-learnnextjs.com, built by Arunoda Susiripala
-Learn Next.js learnnextjs.com Landing page
+많은 개발자들이 Next.js를 여러 백엔드 기술과 통합하는 방법에 대한 예제를 제공하는 데에 도움을 주었습니다.
 
-Logged In view learnnextjs.com Logged in view
+* [Hapi 통합](https://github.com/zeit/next.js/blob/master/examples/custom-server-hapi)
+* [Express 통합](https://github.com/zeit/next.js/blob/master/examples/custom-server-express)
+* [Koa 통합](https://github.com/zeit/next.js/blob/master/examples/custom-server-koa)
 
-Oh, the UI and Backend for learnnextjs.com is open-source. This presents another opportunity to learn Next.js 2.0 by going through its source code.
+### 11. 학습 플랫폼의 가용성
 
-## Enter Next.js 2.2.0
+<!-- It's amazing to see that in a short time that Next.js has been in existence, lots of examples have been amassed and there is a learning platform that the Next.js team approves of. With the release of Next.js 2, we have: -->
 
-**Next.js 2.2.0** was tagged yesterday. It comes bundled with some nice changes:
+ Next.js의 많은 예제가 축적되어 Next.js 팀이 승인 한 학습 플랫폼이 존재한다는 사실에 놀라게 될껍니다. **Next.js 2.0** 릴리스로 우리는 다음과 같은 결과를 얻었습니다:
 
-* CDN support: You might want to upload all your static files to a CDN, including build files. Now, you can serve Next.js static assets via a CDN. All you need is to expose the following option in next.config.js like so:
+<!-- * About 48 examples of integrating Next.js with Apollo, Inferno, Preact and ways of achieving different common functionalities with Next.js
+* learnnextjs.com, built by Arunoda Susiripala -->
+
+* [Next.js와 Apollo, Inferno, Preact를 통합](https://github.com/zeit/next.js/tree/master/examples)하고 Next.js와 다른 공통 기능을 구현하는 방법에 대한 48 가지 예
+* [Arunoda Susiripala](https://twitter.com/arunoda)씨가 만든 [learnnextjs.com](https://learnnextjs.com/)
+
+![Learn Next.js](https://cdn.auth0.com/blog/next20/learnnextjs.png) *learnnextjs.com 랜딩 페이지*
+
+![Logged In view](https://cdn.auth0.com/blog/next20/loggedinview.png) *learnnextjs.com에 로그인 하고 나서의 화면*
+
+<!-- Oh, the UI and Backend for learnnextjs.com is open-source. This presents another opportunity to learn Next.js 2.0 by going through its source code. -->
+
+ 아, [learnnextjs.com](https://learnnextjs.com/)의 [UI](https://github.com/arunoda/coursebook-ui)와 [백엔드](https://github.com/arunoda/coursebook-server)는 오픈 소스입니다. 이것은 소스 코드를 통해 **Next.js 2.0**을 배울 수 있는 또 다른 기회를 제공합니다.
+
+## Next.js 2.2.0으로 들어가기
+
+<!-- **Next.js 2.2.0** was tagged yesterday. It comes bundled with some nice changes: -->
+
+**Next.js 2.2.0**에서 몇가지 꽤 괜찮은 변경점들이 번들로 제공됩니다.:
+
+<!-- * CDN support: You might want to upload all your static files to a CDN, including build files. Now, you can serve Next.js static assets via a CDN. All you need is to expose the following option in next.config.js like so: -->
+
+* **CDN 제공**: 빌드 파일을 포함해서 모든 정적 화일을 CDN에 업로드 하기를 원했었죠. 이제 CDN을 통해 Next.js 정적 리소스들을 제공 할 수 있습니다. 다음과 같이 `next.config.js`에 다음 옵션을 추가하면됩니다.
 ```
 const isProd = process.NODE_ENV === 'production'
 module.exports = {
-  // You may only need to add assetPrefix in the production.
+  // Production에서 assetPrefix만 추가하면 됩니다.
   assetPrefix: isProd? 'https://cdn.mydomain.com' : ''
 }
 ```
+자세한 정보는 [다음 PR](https://github.com/zeit/next.js/pull/1700)에서 확인을 할 수 있습니다.
 
-More information can be found here.
+<!-- More information can be found here.-->
 
-* ETag support for server rendered pages : The ETag HTTP response header is an identifier for a specific version of a resource found at a URL. It allows caches to be more efficient, and saves bandwidth, as a web server does not need to send a full response if the content has not changed. However, if the content has changed, etags are useful to help prevent simultaneous updates of a resource from overwriting each other. Etags are otherwise known as fingerprints used for tracking resource changes on the server.
+<!-- * ETag support for server rendered pages : The ETag HTTP response header is an identifier for a specific version of a resource found at a URL. It allows caches to be more efficient, and saves bandwidth, as a web server does not need to send a full response if the content has not changed. However, if the content has changed, etags are useful to help prevent simultaneous updates of a resource from overwriting each other. Etags are otherwise known as fingerprints used for tracking resource changes on the server. -->
 
-In Next.js, all server-rendered pages now support Etags.
+* **서버 렌더링 페이지에 대한 ETag 지원**: ETag HTTP 응답 헤더는 URL에서 발견되는 특정 버전의 리소스에 대한 식별자입니다. 웹 서버는 내용이 변경되지 않은 경우 전체 응답을 전송할 필요가 없기 때문에 캐시의 효율성을 높이고 대역폭을 절약 할 수 있습니다. 그러나 내용이 변경된 경우 Etag는 자원의 동시 업데이트가 서로 겹쳐 쓰는 것을 방지하는 데 유용합니다. 반면에 Etag는 서버의 변경자원들을 추적하는 데에 사용되는 지문으로 알려져 있습니다.
 
-* New official examples on how to use Next.js with other technologies:
+Next.js에서 서버에서 랜더링 된 모든 페이지들은 Etag를 지원합니다.
+<!--In Next.js, all server-rendered pages now support Etags.-->
+
+<!-- * New official examples on how to use Next.js with other technologies:
   * Material UI
   * Socket.io
   * Semantic UI
-  * Firebase
+  * Firebase -->
 
-More information can be found in the [release notes](https://github.com/zeit/next.js/releases/tag/2.2.0).
+* 어떻게 Next.js를 다른 기술들과 같이 사용하는지에 대한 새로운 공식 예제들:
+  * [Material UI](https://github.com/zeit/next.js/tree/master/examples/with-material-ui)
+  * [Socket.io](https://github.com/zeit/next.js/tree/master/examples/with-socket.io)
+  * [Semantic UI](https://github.com/zeit/next.js/tree/master/examples/with-semantic-ui)
+  * [Firebase](https://github.com/zeit/next.js/tree/master/examples/with-firebase)
 
-## Aside: Authenticating a Next.js 2.0 App with Auth0
+<!-- More information can be found in the [release notes](https://github.com/zeit/next.js/releases/tag/2.2.0). -->
+
+자세한 정보는 [릴리스 노트]((https://github.com/zeit/next.js/releases/tag/2.2.0)를 참고해 주세요.
+
+## Aside: Auth0을 사용하여 Next.js 2.0 응용 프로그램 인증
+
+<!-- Auth0 issues JSON Web Tokens on every login for your users. This means that you can have a solid identity infrastructure, including single sign-on, user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code. -->
 
 Auth0 issues JSON Web Tokens on every login for your users. This means that you can have a solid identity infrastructure, including single sign-on, user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
@@ -534,8 +580,12 @@ The secret page too checks if the user is logged in and determines content based
 
 Note: Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a secret, then you will have to run a custom express server so that your secret can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
 
-## Conclusion
+## 끝맺음
 
-With Next.js 2, the Github repo now has over 11,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this lovely tool and the JavaScript community for their continuous support. In fact, they already have plans for Next.js 3.
+<!-- With Next.js 2, the Github repo now has over 11,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this lovely tool and the JavaScript community for their continuous support. In fact, they already have plans for Next.js 3.-->
 
-Try out Next.js 2 and let me know what you think in the comments section!
+ **Next.js 2**를 통해 [Github 레포](https://github.com/zeit/next.js/)에는 현재 11,000개 이상의 별이 붙었으며 작년에 출시 된 초기 버전에서 많은 중요한 개선 및 주요 업그레이드를 하였습니다. 이 멋진 도구와 JavaScript 커뮤니티의 지속적인 지원에 대한 팀의 공로를 인정합니다. 사실 그들은 **Next.js 3**에 대한 계획을 가지고 있다고 합니다.
+
+<!--Try out Next.js 2 and let me know what you think in the comments section!-->
+
+Next.js 2를 써보시고 댓글란에 여러분의 의견을 공유해주세요.
