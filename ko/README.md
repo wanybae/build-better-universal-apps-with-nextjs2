@@ -301,26 +301,35 @@ Next.js에서 서버에서 랜더링 된 모든 페이지들은 Etag를 지원�
 
 <!-- More information can be found in the [release notes](https://github.com/zeit/next.js/releases/tag/2.2.0). -->
 
-자세한 정보는 [릴리스 노트]((https://github.com/zeit/next.js/releases/tag/2.2.0)를 참고해 주세요.
+자세한 정보는 [릴리스 노트](https://github.com/zeit/next.js/releases/tag/2.2.0)를 참고해 주세요.
 
-## Aside: Auth0을 사용하여 Next.js 2.0 응용 프로그램 인증
+## Aside: Auth0을 사용한 Next.js 2.0 앱의 인증
 
 <!-- Auth0 issues JSON Web Tokens on every login for your users. This means that you can have a solid identity infrastructure, including single sign-on, user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code. -->
 
-Auth0 issues JSON Web Tokens on every login for your users. This means that you can have a solid identity infrastructure, including single sign-on, user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+**Auth0**은 사용자 로그인 할 때마다 [JSON 형태의 웹 토큰](https://jwt.io/)을 발행합니다. 즉, [싱글 사인온(SSO)](https://auth0.com/docs/sso/single-sign-on), 사용자 관리, 소셜 ID 제공 업체(Facebook, Github, Twitter 등), 엔터프라이즈 ID 제공자(Active Directory, LDAP, SAML 등)에 대한 지원을 비롯하여 견고한 [ID 인프라](https://auth0.com/docs/identityproviders)를 보유 할 수 있습니다. 몇 줄의 코드만으로 사용자 데이터베이스를 구축 할 수 있습니다.
 
-We can easily set up authentication in a Next.js 2.0 apps by using the Lock Widget. If you don't already have an Auth0 account, sign up for one now. Navigate to the Auth0 management dashboard, click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+<!-- We can easily set up authentication in a Next.js 2.0 apps by using the Lock Widget. If you don't already have an Auth0 account, sign up for one now. Navigate to the Auth0 management dashboard, click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.-->
 
-Note: Make sure you set the `Allowed Callback URLs` to `http://localhost:3000/` or whatever url/port you are running on. Also set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted.
+ [잠금 위젯](https://auth0.com/lock)을 사용하여 **Next.js 2.0** 앱에서 인증을 쉽게 설정할 수 있습니다. 여기서 Auth0 계정이 필요한데 없다면 가입하세요. Auth0 관리 대시 보드로 이동하여 오른쪽에있는 '새 클라이언트'를 클릭하고 대화 상자에서 일반 웹 응용 프로그램을 선택한 다음 클라이언트 ID, 클라이언트 비밀 번호 및 도메인을 검색 할 수있는 '설정'탭으로 이동하십시오.
 
-Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.
+<!-- Note: Make sure you set the `Allowed Callback URLs` to `http://localhost:3000/` or whatever url/port you are running on. Also set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted. -->
 
-In the example below, the token returned from Auth0 is stored in LocalStorage and also as a cookie.
+참고: `Allowed Callback URL`을 `http://localhost:3000/` 또는 사용중인 url/port로 설정하세요. `Allowed Origins (CORS)`를 `http://localhost:3000/` 또는 여러분이 사용하고있는 도메인 URL로 설정하세요.
 
-Check out [the completed app on Github](https://github.com/auth0-blog/next2-auth0).
+<!-- Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.-->
 
-utils/auth.js
+ Next.js 앱의 인증은 서버 렌더링 페이지가 인증되었는지, 즉 토큰에 액세스해야 하는지를 확인해야하기 때문에 조금 복잡 할 수 있습니다.
 
+<!-- In the example below, the token returned from Auth0 is stored in LocalStorage and also as a cookie. -->
+
+아래 예제에서 Auth0에서 반환 된 토큰은 LocalStorage에 저장되며 쿠키로도 저장됩니다.
+
+<!-- Check out [the completed app on Github](https://github.com/auth0-blog/next2-auth0).-->
+
+ [Github에 완성된 앱](https://github.com/auth0-blog/next2-auth0)을 확인하세요.
+
+*utils/auth.js*
 ```
 import jwtDecode from 'jwt-decode'
 import Cookie from 'js-cookie'
@@ -383,8 +392,8 @@ export const setSecret = (secret) => window.localStorage.setItem('secret', secre
 
 export const checkSecret = (secret) => window.localStorage.secret === secret
 ```
-utils/lock.js
 
+*utils/lock.js*
 ```
 import { setSecret } from './auth'
 
@@ -418,8 +427,8 @@ const getOptions = (container) => {
 export const show = (container) => getLock(getOptions(container)).show()
 export const logout = () => getLock().logout({ returnTo: getBaseUrl() })
 ```
-pages/auth/sign-in.js
 
+pages/auth/sign-in.js
 ```
 import React from 'react'
 
@@ -469,11 +478,14 @@ export default class SignedIn extends React.Component {
   }
 }
 ```
-Grab the token and secret from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page.
 
-![Signed in](https://cdn.auth0.com/blog/signedin/authenticated.png) Secret page shows that the user is signed in and can access it
+<!--Grab the token and secret from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page. -->
 
-pages/index.js
+로그인 페이지인 콜백으로 돌아가서 Auth0에서 토큰과 시크릿을 가져 와서 저장하고 인덱스 페이지로 리디렉션하세요.
+
+![Signed in](https://cdn.auth0.com/blog/signedin/authenticated.png) *시크릿 페이지는 사용자가 로그인하여 액세스 할 수 있음을 보여줍니다.*
+
+*pages/index.js*
 
 ```
 import React, { PropTypes } from 'react'
@@ -572,13 +584,19 @@ Index.propTypes = {
 
 export default defaultPage(Index)
 ```
-The index page is server-rendered. It checks if the user is authenticated or not and renders content based on the status.
+<!-- The index page is server-rendered. It checks if the user is authenticated or not and renders content based on the status. -->
 
-The secret page too checks if the user is logged in and determines content based on the user's status.
+인덱스 페이지는 서버에서 렌더링됩니다. 사용자가 인증되었는지 여부를 확인하고 상태를 기반으로 콘텐츠를 렌더링합니다.
 
-![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png) Not displaying valid content because the user cant access the secret page without signing in
+<!-- The secret page too checks if the user is logged in and determines content based on the user's status.-->
 
-Note: Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a secret, then you will have to run a custom express server so that your secret can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
+[시크릿 페이지](https://github.com/auth0-blog/next2-auth0/blob/master/pages/secret.js)도 사용자가 로그인했는지 여부를 확인하고 사용자의 상태에 따라 콘텐츠를 결정합니다.
+
+![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png) *사용자가 로그인하지 않고도 시크릿 페이지에 액세스 할 수 없기 때문에 유효한 내용을 표시하지 않습니다.*
+
+<!--Note: Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a secret, then you will have to run a custom express server so that your secret can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.-->
+
+**참고**: Next.js는 사실상 모든 것을 클라이언트에 공개합니다. *시크릿*과 환경 변수가 프론트 엔드로 유출됩니다. 따라서 API 호출을 수행하고 시크릿을 기반으로 토큰의 유효성을 검사해야하는 경우 서버에서 *시크릿*만 사용할 수 있도록 [커스텀 고속 서버](https://github.com/zeit/next.js/tree/master/examples/custom-server-express)를 실행해야합니다. 이는 앱의 사용자가 액세스해서는 안되는 일부 시크릿 환경 변수를 로드해야하는 다른 작업 양식에도 적용됩니다.
 
 ## 끝맺음
 
