@@ -1,4 +1,4 @@
-# Next.js 2.0을 이용하여 보다 낳은 Universal JavaScript 앱을 만들기
+# Next.js 2.0을 이용하여 보다 나은 Universal JavaScript 앱을 만들기
 ## TL;DR: 
 <!-- On Tuesday, October 25 2016, a small JavaScript framework, Next.js was released to the public. It's a minimal framework for building server-rendered universal JavaScript web apps. Within a few months of its existence, it gathered a lot of attention from the JavaScript community. The React community was set ablaze with joy for finally having a tool that can help build server-side rendering apps without hassle and in-depth technical know-how. In fact, we covered how to build a universal JavaScript web app with it. The team behind Next.js did not take a break, they continued working tirelessly for months to fix several bugs, improve performance and still make the framework as simple as possible. Their efforts have yielded a Next.js 2.0 release. -->
 
